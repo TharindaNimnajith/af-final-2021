@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router'
+import useWindowSize from 'react-use/lib/useWindowSize'
 import {Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import Confetti from 'react-confetti'
 import axios from 'axios'
 import {isEmpty} from '../../../../../helpers/common.helpers'
 import {quizzesApi} from '../../../../../config/api.config'
@@ -10,6 +12,8 @@ import TextField from '../../../../../components/text-field/text-field'
 import './play-component.css'
 
 const PlayComponent = props => {
+  const {width, height} = useWindowSize()
+
   const [successModal, setSuccessModal] = useState(false)
 
   const helperAnswer1 = 'Please enter the answer for question 1.'
@@ -132,6 +136,14 @@ const PlayComponent = props => {
           <Loader/>
         ) : null
       }
+      <div>
+        {
+          markResults && answer1Correct && answer2Correct && answer3Correct ? (
+            <Confetti width={width}
+                      height={height}/>
+          ) : null
+        }
+      </div>
       <div>
         <Modal isOpen={successModal}
                toggle={toggleSuccessModal}
