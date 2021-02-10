@@ -1,0 +1,17 @@
+1. Go to the 'backend' folder.
+2. Run the command 'npm install' in CLI.
+3. Then run the command 'nodemon app' in CLI.
+4. Go to 'frontend' folder.
+5. Run the command 'npm install' in CLI.
+6. Then run the command 'npm start' in CLI.
+
+User Login:
+    Method 1: Create a user account with 'Register' page to login to the system as a user.
+    Method 2: Use the following login credentials of an already created user account to login to the system as a user.
+              Email    : user@user.com
+              Password : user
+
+Admin Login:
+    Use the following login credentials of an already created admin account to login to the system as an admin.
+    Email    : admin@gmail.com
+    Password : admin

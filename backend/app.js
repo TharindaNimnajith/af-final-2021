@@ -1,41 +1,58 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const helmet = require('helmet')
+const cors = require('cors')
+const compression = require('compression')
+const path = require('path')
+const HttpErrors = require('./config/errors.config')
+const UsersRoutes = require('./routes/users.routes')
+const AuthRoutes = require('./routes/auth.routes')
+const UploadsRoutes = require('./routes/uploads.routes')
+const RoomsRoutes = require('./routes/rooms.routes')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+require('dotenv').config()
 
-var app = express();
+const app = express()
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json())
+app.use(compression())
+app.use(cors())
+app.use(helmet())
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.use('/users', UsersRoutes)
+app.use('/auth', AuthRoutes)
+app.use('/uploads', UploadsRoutes)
+app.use('/rooms', RoomsRoutes)
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.get('*', (req, res) => {
+  res.status(200).send('Server is running');
+})
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(() => {
+  throw new HttpErrors('Could not find this route.', 404)
+})
 
-module.exports = app;
+const uri = process.env.ATLAS_URI
+const port = process.env.PORT
+const dbName = process.env.DATABASE
+
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  dbName: dbName
+}
+
+mongoose.connect(uri, options).then(() => {
+  app.listen(port)
+  console.log(`Server is running on port: ${port}`)
+}).catch((error) => {
+  console.error(error)
+})
