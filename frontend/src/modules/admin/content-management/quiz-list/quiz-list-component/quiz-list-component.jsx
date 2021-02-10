@@ -1,5 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {Card, CardDeck, CardText, CardTitle, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import {
+  Card,
+  CardBody,
+  CardDeck,
+  CardFooter,
+  CardText,
+  CardTitle,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
+} from 'reactstrap'
 import axios from 'axios'
 import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
@@ -136,26 +147,29 @@ const QuizListComponent = props => {
         </small>
       </div>
       <div>
-        <CardDeck>
+        <CardDeck className='card-deck'>
           {
             data && data.map(item => {
               return (
-                <Card body
-                      key={item._id}
-                      onClick={() => onView(item._id)}
-                      title='View Quiz'>
-                  <CardTitle className='text-uppercase text-center m-4'
-                             tag='h2'>
-                    <label>{item.quizTitle}</label>
-                  </CardTitle>
-                  <CardText className='m-3'>
-                    <label>{item.quizDescription}</label>
-                  </CardText>
-                  <div className='text-center m-3'>
-                    <i className='fas fa-trash-alt delete'
-                       title='Delete Quiz'
-                       onClick={() => onDelete(item._id)}/>
-                  </div>
+                <Card key={item._id}
+                      title='View Quiz'
+                      className='m-3 card-item'>
+                  <CardBody onClick={() => onView(item._id)}>
+                    <CardTitle className='text-uppercase text-center m-4'
+                               tag='h2'>
+                      <label>{item.quizTitle}</label>
+                    </CardTitle>
+                    <CardText className='m-4 text-center'>
+                      <label>{item.quizDescription}</label>
+                    </CardText>
+                  </CardBody>
+                  <CardFooter>
+                    <div className='text-center m-2'>
+                      <i className='fas fa-trash-alt delete'
+                         title='Delete Quiz'
+                         onClick={() => onDelete(item._id)}/>
+                    </div>
+                  </CardFooter>
                 </Card>
               )
             })
