@@ -56,3 +56,5 @@ mongoose.connect(uri, options).then(() => {
 }).catch((error) => {
   console.error(error)
 })
+
+module.exports = app
