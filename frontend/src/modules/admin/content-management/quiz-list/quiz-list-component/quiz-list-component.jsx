@@ -169,10 +169,14 @@ const QuizListComponent = props => {
                       <CardBody onClick={() => onView(item._id)}>
                         <CardTitle className='text-uppercase text-center m-4'
                                    tag='h2'>
-                          <label>{item.quizTitle}</label>
+                          <label>
+                            {item.quizTitle}
+                          </label>
                         </CardTitle>
                         <CardText className='m-4 text-center'>
-                          <label>{item.quizDescription}</label>
+                          <label>
+                            {item.quizDescription}
+                          </label>
                         </CardText>
                       </CardBody>
                       <CardFooter>
