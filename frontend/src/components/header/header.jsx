@@ -34,6 +34,11 @@ const Header = props => {
                    onClick={onNavBarDisplay}/>
               </NavbarBrand>
             </div>
+            <div>
+              <p className='logo mb-0'>
+                iLearn
+              </p>
+            </div>
             <div className={appContext.loginData === null ? 'invisible' : ''}>
               <NavbarBrand>
                 <i className='icon fas fa-sign-out-alt'

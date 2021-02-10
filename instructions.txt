@@ -5,13 +5,15 @@
 5. Run the command 'npm install' in CLI.
 6. Then run the command 'npm start' in CLI.
 
-User Login:
-    Method 1: Create a user account with 'Register' page to login to the system as a user.
-    Method 2: Use the following login credentials of an already created user account to login to the system as a user.
-              Email    : user@user.com
-              Password : user
+Student Login:
+    Method 1: Create a student account with 'Register' page to login to the system as a student.
+    Method 2: Use the following login credentials of an already created student account to login
+              to the system as a student.
+                  Email    : student@gmail.com
+                  Password : student
 
-Admin Login:
-    Use the following login credentials of an already created admin account to login to the system as an admin.
-    Email    : admin@gmail.com
-    Password : admin
+Teacher Login:
+    Use the following login credentials of an already created teacher account to login to the
+    system as a teacher.
+        Email    : teacher@gmail.com
+        Password : teacher

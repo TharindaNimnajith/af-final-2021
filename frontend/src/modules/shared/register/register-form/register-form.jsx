@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {Card, CardBody} from 'reactstrap'
+import {Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
 import {isEmpty} from '../../../../helpers/common.helpers'
 import {usersApi} from '../../../../config/api.config'
@@ -10,6 +10,9 @@ import ButtonComponent from '../../../../components/button/button'
 import './register-form.css'
 
 const RegisterForm = props => {
+  const [successModal, setSuccessModal] = useState(false)
+  const [message, setMessage] = useState('')
+
   const helperFirstName = 'Please enter your first name.'
   const helperLastName = 'Please enter your last name.'
   const helperEmail = 'Please enter your email address.'
@@ -88,6 +91,14 @@ const RegisterForm = props => {
     return !firstNameValid || !lastNameValid || !emailValid || !passwordValid || !confirmPasswordValid
   }
 
+  const toggleSuccessModal = async () => {
+    setSuccessModal(!successModal)
+  }
+
+  const onClick = async () => {
+    props.history.push('/login')
+  }
+
   const onSubmit = async () => {
     setError('')
     const data = {
@@ -100,7 +111,8 @@ const RegisterForm = props => {
     axios.post(`${usersApi}users`, data).then(res => {
       if (res.data.status === 201) {
         setLoader(false)
-        props.history.push('/login')
+        setMessage(res.data.message)
+        toggleSuccessModal()
       } else if (res.data.status === 409) {
         setError(res.data.message)
       }
@@ -119,105 +131,127 @@ const RegisterForm = props => {
           <Loader/>
         ) : null
       }
-      <Card className='overflow-hidden'>
-        <div className='register-header'>
-          <div className='text-primary text-center p-4'>
-            <h1 className='text-white font-size-20 text-uppercase'>
-              <i className='register-icon fas fa-user-plus mt-2'/>
-              <span className='ms-3'>
+      <div>
+        <Modal isOpen={successModal}
+               toggle={toggleSuccessModal}
+               className='modal-close'>
+          <ModalHeader toggle={toggleSuccessModal}
+                       className='text-uppercase title'>
+            Success!
+          </ModalHeader>
+          <ModalBody>
+            {message}
+          </ModalBody>
+          <ModalFooter>
+            <ButtonComponent btnText={'Ok'}
+                             isFullWidth={false}
+                             elementStyle={'ok-button'}
+                             disabled={false}
+                             onClickFn={onClick}/>
+          </ModalFooter>
+        </Modal>
+      </div>
+      <div>
+        <Card className='overflow-hidden'>
+          <div className='register-header'>
+            <div className='text-primary text-center p-4'>
+              <h1 className='text-white font-size-20 text-uppercase'>
+                <i className='register-icon fas fa-user-plus mt-2'/>
+                <span className='ms-3'>
                   Register
                 </span>
-            </h1>
+              </h1>
+            </div>
           </div>
-        </div>
-        <CardBody className='p-4'>
-          <div>
-            <small>
-              {
-                error ? (
-                  <span className='p-3 error'>
+          <CardBody className='p-4'>
+            <div>
+              <small>
+                {
+                  error ? (
+                    <span className='p-3 error'>
                     {error}
                   </span>
-                ) : null
-              }
-            </small>
-          </div>
-          <div className='p-3'>
-            <div>
-              <TextField isRequired={true}
-                         labelText={'First Name'}
-                         name={'firstName'}
-                         value={firstName}
-                         errorText={errorFirstName}
-                         helperText={helperFirstName}
-                         maxLength={50}
-                         onChangeFn={(event) => onChangeFirstName(event)}/>
+                  ) : null
+                }
+              </small>
             </div>
-            <div>
-              <TextField isRequired={true}
-                         labelText={'Last Name'}
-                         name={'lastName'}
-                         value={lastName}
-                         errorText={errorLastName}
-                         helperText={helperLastName}
-                         maxLength={50}
-                         onChangeFn={(event) => onChangeLastName(event)}/>
+            <div className='p-3'>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'First Name'}
+                           name={'firstName'}
+                           value={firstName}
+                           errorText={errorFirstName}
+                           helperText={helperFirstName}
+                           maxLength={50}
+                           onChangeFn={(event) => onChangeFirstName(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Last Name'}
+                           name={'lastName'}
+                           value={lastName}
+                           errorText={errorLastName}
+                           helperText={helperLastName}
+                           maxLength={50}
+                           onChangeFn={(event) => onChangeLastName(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Email'}
+                           type={'email'}
+                           name={'email'}
+                           value={email}
+                           errorText={errorEmail}
+                           helperText={helperEmail}
+                           minLength={6}
+                           maxLength={100}
+                           onChangeFn={(event) => onChangeEmail(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Password'}
+                           type={'password'}
+                           name={'password'}
+                           value={password}
+                           errorText={errorPassword}
+                           helperText={helperPassword}
+                           minLength={4}
+                           maxLength={50}
+                           onChangeFn={(event) => onChangePassword(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Confirm Password'}
+                           type={'password'}
+                           name={'confirmPassword'}
+                           value={confirmPassword}
+                           errorText={errorConfirmPassword}
+                           helperText={helperConfirmPassword}
+                           disabled={!passwordValid}
+                           minLength={4}
+                           maxLength={50}
+                           onChangeFn={(event) => onChangeConfirmPassword(event)}/>
+              </div>
+              <div className='text-center mt-4 mb-3'>
+                <ButtonComponent btnText={'Register'}
+                                 isFullWidth={false}
+                                 elementStyle={'register-btn'}
+                                 disabled={isDisabled()}
+                                 onClickFn={onSubmit}/>
+              </div>
             </div>
-            <div>
-              <TextField isRequired={true}
-                         labelText={'Email'}
-                         type={'email'}
-                         name={'email'}
-                         value={email}
-                         errorText={errorEmail}
-                         helperText={helperEmail}
-                         minLength={6}
-                         maxLength={100}
-                         onChangeFn={(event) => onChangeEmail(event)}/>
+            <div className='ms-3'>
+              <label>Already have an account?&nbsp;</label>
+              <Link to={'/login'}>
+                <label className='login-link'>
+                  Login
+                </label>
+              </Link>
             </div>
-            <div>
-              <TextField isRequired={true}
-                         labelText={'Password'}
-                         type={'password'}
-                         name={'password'}
-                         value={password}
-                         errorText={errorPassword}
-                         helperText={helperPassword}
-                         minLength={4}
-                         maxLength={50}
-                         onChangeFn={(event) => onChangePassword(event)}/>
-            </div>
-            <div>
-              <TextField isRequired={true}
-                         labelText={'Confirm Password'}
-                         type={'password'}
-                         name={'confirmPassword'}
-                         value={confirmPassword}
-                         errorText={errorConfirmPassword}
-                         helperText={helperConfirmPassword}
-                         disabled={!passwordValid}
-                         minLength={4}
-                         maxLength={50}
-                         onChangeFn={(event) => onChangeConfirmPassword(event)}/>
-            </div>
-            <div className='text-center mt-4 mb-3'>
-              <ButtonComponent btnText={'Register'}
-                               isFullWidth={false}
-                               elementStyle={'register-btn'}
-                               disabled={isDisabled()}
-                               onClickFn={onSubmit}/>
-            </div>
-          </div>
-          <div className='ms-3'>
-            <label>Already have an account?&nbsp;</label>
-            <Link to={'/login'}>
-              <label className='login-link'>
-                Login
-              </label>
-            </Link>
-          </div>
-        </CardBody>
-      </Card>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   )
 }
