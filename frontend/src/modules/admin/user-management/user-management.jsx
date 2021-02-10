@@ -10,6 +10,9 @@ const UserManagement = () => {
       <div>
         <Header/>
       </div>
+      <h1 className='text-center text-uppercase mt-5'>
+        User Management
+      </h1>
       <div className='container user-management-page'>
         <UserManagementComponent/>
       </div>

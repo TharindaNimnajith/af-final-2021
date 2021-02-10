@@ -221,6 +221,35 @@ const updateUser = async (req, res) => {
   })
 }
 
+const promoteUser = async (req, res) => {
+  let user
+
+  const {
+    id
+  } = req.params
+
+  try {
+    user = await UserModel.findById(id)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(error)
+  }
+
+  user.userType = 'Admin'
+
+  try {
+    await user.save()
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(error)
+  }
+
+  res.send({
+    status: 200,
+    message: 'The user has been successfully promoted as a teacher!'
+  })
+}
+
 const deleteUser = async (req, res) => {
   let user
 
@@ -281,6 +310,7 @@ const getUserList = async (req, res) => {
 exports.addUser = addUser
 exports.addAdmin = addAdmin
 exports.updateUser = updateUser
+exports.promoteUser = promoteUser
 exports.deleteUser = deleteUser
 exports.getUser = getUser
 exports.getUserList = getUserList

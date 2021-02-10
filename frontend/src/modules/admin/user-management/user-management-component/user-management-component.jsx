@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react'
+import {Modal, ModalBody, ModalFooter, ModalHeader, Table} from 'reactstrap'
+import axios from 'axios'
+import {usersApi} from '../../../../config/api.config'
+import Loader from '../../../../components/loader/loader'
+import ButtonComponent from '../../../../components/button/button'
 import './user-management-component.css'
-import axios from "axios";
-import {usersApi} from "../../../../config/api.config";
-import Loader from "../../../../components/loader/loader";
-import {Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
-import ButtonComponent from "../../../../components/button/button";
 
 const UserManagementComponent = () => {
   const [loader, setLoader] = useState(false)
 
   const [successModal, setSuccessModal] = useState(false)
+  const [successModalEdit, setSuccessModalEdit] = useState(false)
+
   const [message, setMessage] = useState('')
+
+  const [modal, setModal] = useState(false)
+  const [modalEdit, setModalEdit] = useState(false)
 
   const [data, setData] = useState(null)
 
-  const [modal, setModal] = useState(false)
   const [deleteId, setDeleteId] = useState('')
+  const [editId, setEditId] = useState('')
 
   const [error, setError] = useState('')
 
@@ -37,7 +42,39 @@ const UserManagementComponent = () => {
   }
 
   const onEdit = async id => {
-    console.log(id)
+    setEditId(id)
+    await toggleEdit()
+  }
+
+  const toggleEdit = async () => {
+    setModalEdit(!modalEdit)
+  }
+
+  const toggleSuccessModalEdit = async () => {
+    setSuccessModalEdit(!successModalEdit)
+  }
+
+  const confirmEdit = async () => {
+    setError('')
+    setLoader(true)
+    axios.put(`${usersApi}users/promote/${editId}`).then(res => {
+      if (res.data.status === 200) {
+        setMessage(res.data.message)
+        toggleEdit()
+        toggleSuccessModalEdit()
+        loadData()
+      } else {
+        toggleEdit()
+        setError('An unexpected error occurred. Please try again later.')
+        console.error(error)
+      }
+      setLoader(false)
+    }).catch(error => {
+      toggleEdit()
+      setError('An unexpected error occurred. Please try again later.')
+      setLoader(false)
+      console.error(error)
+    })
   }
 
   const onDelete = async id => {
@@ -83,6 +120,51 @@ const UserManagementComponent = () => {
           <Loader/>
         ) : null
       }
+      <div>
+        <Modal isOpen={successModalEdit}
+               toggle={toggleSuccessModalEdit}
+               className='modal-close'>
+          <ModalHeader toggle={toggleSuccessModalEdit}
+                       className='text-uppercase title'>
+            Success!
+          </ModalHeader>
+          <ModalBody>
+            {message}
+          </ModalBody>
+          <ModalFooter>
+            <ButtonComponent btnText={'Ok'}
+                             isFullWidth={false}
+                             elementStyle={'ok-button'}
+                             disabled={false}
+                             onClickFn={toggleSuccessModalEdit}/>
+          </ModalFooter>
+        </Modal>
+      </div>
+      <div>
+        <Modal isOpen={modalEdit}
+               toggle={toggleEdit}
+               className='modal-close'>
+          <ModalHeader toggle={toggleEdit}
+                       className='text-uppercase'>
+            Promote to Teacher
+          </ModalHeader>
+          <ModalBody>
+            Are you sure you want to promote this user as a teacher?
+          </ModalBody>
+          <ModalFooter>
+            <ButtonComponent btnText={'Yes'}
+                             isFullWidth={false}
+                             elementStyle={'yes-button-edit'}
+                             disabled={false}
+                             onClickFn={confirmEdit}/>
+            <ButtonComponent btnText={'No'}
+                             isFullWidth={false}
+                             elementStyle={'no-button'}
+                             disabled={false}
+                             onClickFn={toggleEdit}/>
+          </ModalFooter>
+        </Modal>
+      </div>
       <div>
         <Modal isOpen={successModal}
                toggle={toggleSuccessModal}
@@ -171,15 +253,35 @@ const UserManagementComponent = () => {
                     {item.email}
                   </td>
                   <td>
-                    {item.userType}
+                    {
+                      item.userType === 'Admin' ? (
+                        <span className='text-danger'>
+                          Teacher
+                        </span>
+                      ) : (
+                        <span className='text-primary'>
+                          Student
+                        </span>
+                      )
+                    }
                   </td>
                   <td className='text-center'>
-                    <i className='fas fa-pencil-alt edit'
-                       onClick={() => onEdit(item._id)}/>
+                    {
+                      item.userType === 'User' ? (
+                        <i className='fas fa-arrow-up edit'
+                           title='Promote to Teacher'
+                           onClick={() => onEdit(item._id)}/>
+                      ) : null
+                    }
                   </td>
                   <td className='text-center'>
-                    <i className='fas fa-trash-alt delete'
-                       onClick={() => onDelete(item._id)}/>
+                    {
+                      item.userType === 'User' ? (
+                        <i className='fas fa-trash-alt delete'
+                           title='Delete Student'
+                           onClick={() => onDelete(item._id)}/>
+                      ) : null
+                    }
                   </td>
                 </tr>
               )

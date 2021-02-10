@@ -16,6 +16,12 @@
     width: 80px;
 }
 
+.yes-button-edit {
+    background-color: green !important;
+    border: green !important;
+    width: 80px;
+}
+
 .no-button {
     background-color: #606060 !important;
     border: #606060 !important;

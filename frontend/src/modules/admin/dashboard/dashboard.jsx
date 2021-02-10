@@ -10,7 +10,7 @@ const Dashboard = () => {
       <div>
         <Header/>
       </div>
-      <div className='container dashboard-page'>
+      <div className='dashboard-page'>
         <AdminDashboardComponent/>
       </div>
       <div>
