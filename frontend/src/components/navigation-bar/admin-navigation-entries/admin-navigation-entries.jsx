@@ -8,41 +8,17 @@ const AdminNavigationEntries = () => {
       <Nav vertical>
         <div>
           <NavItem>
-            <NavLink href='/dashboard'>
-              <i className='fa fa-fw fa-home m-1'/>
-              <label>Dashboard</label>
+            <NavLink href='/user-management'>
+              <i className='fa fa-fw fa-user m-1'/>
+              <label>Users</label>
             </NavLink>
           </NavItem>
         </div>
         <div>
           <NavItem>
-            <NavLink href='/home'>
-              <i className='fa fa-fw fa-home m-1'/>
-              <label>Home</label>
-            </NavLink>
-          </NavItem>
-        </div>
-        <div>
-          <NavItem>
-            <NavLink href='/login'>
-              <i className='fa fa-fw fa-home m-1'/>
-              <label>Login</label>
-            </NavLink>
-          </NavItem>
-        </div>
-        <div>
-          <NavItem>
-            <NavLink href='/register'>
-              <i className='fa fa-fw fa-home m-1'/>
-              <label>Register</label>
-            </NavLink>
-          </NavItem>
-        </div>
-        <div>
-          <NavItem>
-            <NavLink href='/'>
-              <i className='fa fa-fw fa-home m-1'/>
-              <label>Navigation Link</label>
+            <NavLink href='/content-management'>
+              <i className='fa fa-fw fa-book m-1'/>
+              <label>Content</label>
             </NavLink>
           </NavItem>
         </div>

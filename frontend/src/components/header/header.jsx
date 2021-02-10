@@ -35,9 +35,9 @@ const Header = props => {
               </NavbarBrand>
             </div>
             <div>
-              <p className='logo mb-0'>
-                iLearn
-              </p>
+              <label className='logo mb-0'>
+                Welcome to iLearn - Start Your Learning Journey Today!
+              </label>
             </div>
             <div className={appContext.loginData === null ? 'invisible' : ''}>
               <NavbarBrand>
