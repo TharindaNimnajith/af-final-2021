@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
 const UserModel = require('../models/users.model')
 
+require('dotenv').config()
+
 const addUser = async (req, res) => {
   let existingUser
 
