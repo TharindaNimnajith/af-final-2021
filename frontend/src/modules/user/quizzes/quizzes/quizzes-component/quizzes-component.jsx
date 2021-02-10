@@ -28,7 +28,7 @@ const QuizzesComponent = props => {
   }
 
   const onView = async id => {
-    props.history.push('/single-quiz/' + id)
+    props.history.push('/play/' + id)
   }
 
   return (
