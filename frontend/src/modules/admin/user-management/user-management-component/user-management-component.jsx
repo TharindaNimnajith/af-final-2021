@@ -8,20 +8,14 @@ import './user-management-component.css'
 
 const UserManagementComponent = () => {
   const [loader, setLoader] = useState(false)
-
   const [successModal, setSuccessModal] = useState(false)
   const [successModalEdit, setSuccessModalEdit] = useState(false)
-
-  const [message, setMessage] = useState('')
-
   const [modal, setModal] = useState(false)
   const [modalEdit, setModalEdit] = useState(false)
-
-  const [data, setData] = useState(null)
-
+  const [message, setMessage] = useState('')
   const [deleteId, setDeleteId] = useState('')
   const [editId, setEditId] = useState('')
-
+  const [data, setData] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(() => {

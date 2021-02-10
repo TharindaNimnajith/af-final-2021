@@ -30,6 +30,14 @@ const AdminNavigationEntries = () => {
             </NavLink>
           </NavItem>
         </div>
+        <div>
+          <NavItem>
+            <NavLink href='/add-quiz'>
+              <i className='fa fa-fw fa-question m-1'/>
+              <label>Add Quiz</label>
+            </NavLink>
+          </NavItem>
+        </div>
       </Nav>
     </div>
   )

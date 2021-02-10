@@ -7,7 +7,8 @@ import Register from './modules/shared/register/register'
 import Home from './modules/user/home/home'
 import Dashboard from './modules/admin/dashboard/dashboard'
 import UserManagement from './modules/admin/user-management/user-management'
-import ContentManagement from './modules/admin/content-management/content-management'
+import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
+import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -52,7 +53,12 @@ const App = () => {
                            exact={true}
                            needAuthentication={true}
                            userType={admin}
-                           component={ContentManagement}/>
+                           component={QuizList}/>
+              <RouteFilter path={'/add-quiz'}
+                           exact={true}
+                           needAuthentication={true}
+                           userType={admin}
+                           component={AddQuiz}/>
               <Route component={NotFound}/>
             </Switch>
           </BrowserRouter>

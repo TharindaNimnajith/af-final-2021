@@ -2,14 +2,14 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
+const path = require('path')
 const cors = require('cors')
 const compression = require('compression')
-const path = require('path')
 const HttpErrors = require('./config/errors.config')
 const UsersRoutes = require('./routes/users.routes')
 const AuthRoutes = require('./routes/auth.routes')
 const UploadsRoutes = require('./routes/uploads.routes')
-const RoomsRoutes = require('./routes/rooms.routes')
+const QuizzesRoutes = require('./routes/quizzes.routes')
 
 require('dotenv').config()
 
@@ -29,7 +29,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use('/users', UsersRoutes)
 app.use('/auth', AuthRoutes)
 app.use('/uploads', UploadsRoutes)
-app.use('/rooms', RoomsRoutes)
+app.use('/quizzes', QuizzesRoutes)
 
 app.get('*', (req, res) => {
   res.status(200).send('Server is running');
