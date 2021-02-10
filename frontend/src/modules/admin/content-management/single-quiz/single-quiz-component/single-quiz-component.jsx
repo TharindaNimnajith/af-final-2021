@@ -13,8 +13,6 @@ const SingleQuizComponent = props => {
   const [successModal, setSuccessModal] = useState(false)
   const [message, setMessage] = useState('')
 
-  const [data, setData] = useState(null)
-
   const helperQuizTitle = 'Please enter a title for the quiz.'
   const helperQuizDescription = 'Please enter a description about the quiz.'
   const helperAnswer1 = 'Please enter the answer for question 1.'
@@ -44,14 +42,14 @@ const SingleQuizComponent = props => {
   const [errorQuestion3, setErrorQuestion3] = useState('')
   const [errorAnswer3, setErrorAnswer3] = useState('')
 
-  const [quizTitleValid, setQuizTitleValid] = useState(false)
-  const [quizDescriptionValid, setQuizDescriptionValid] = useState(false)
-  const [question1Valid, setQuestion1Valid] = useState(false)
-  const [answer1Valid, setAnswer1Valid] = useState(false)
-  const [question2Valid, setQuestion2Valid] = useState(false)
-  const [answer2Valid, setAnswer2Valid] = useState(false)
-  const [question3Valid, setQuestion3Valid] = useState(false)
-  const [answer3Valid, setAnswer3Valid] = useState(false)
+  const [quizTitleValid, setQuizTitleValid] = useState(true)
+  const [quizDescriptionValid, setQuizDescriptionValid] = useState(true)
+  const [question1Valid, setQuestion1Valid] = useState(true)
+  const [answer1Valid, setAnswer1Valid] = useState(true)
+  const [question2Valid, setQuestion2Valid] = useState(true)
+  const [answer2Valid, setAnswer2Valid] = useState(true)
+  const [question3Valid, setQuestion3Valid] = useState(true)
+  const [answer3Valid, setAnswer3Valid] = useState(true)
 
   const [error, setError] = useState('')
 
@@ -67,8 +65,15 @@ const SingleQuizComponent = props => {
   const loadData = async () => {
     setLoader(true)
     axios.get(`${quizzesApi}quizzes/${id}`).then(res => {
-      console.log(res.data.quiz)
-      setData(res.data.quiz)
+      let data = res.data.quiz
+      setQuizTitle(data.quizTitle)
+      setQuizDescription(data.quizDescription)
+      setQuestion1(data.questions[0].question)
+      setAnswer1(data.questions[0].answer)
+      setQuestion2(data.questions[1].question)
+      setAnswer2(data.questions[1].answer)
+      setQuestion3(data.questions[2].question)
+      setAnswer3(data.questions[2].answer)
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
@@ -145,7 +150,7 @@ const SingleQuizComponent = props => {
     setAnswer3Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
     setErrorAnswer3('')
     if (!event.eventInfo.target.validity.valid) {
-      setErrorAnswer2('Please enter a valid answer.')
+      setErrorAnswer3('Please enter a valid answer.')
     }
   }
 
@@ -183,8 +188,8 @@ const SingleQuizComponent = props => {
       ]
     }
     setLoader(true)
-    axios.post(`${quizzesApi}quizzes`, data).then(res => {
-      if (res.data.status === 201) {
+    axios.put(`${quizzesApi}quizzes/${id}`, data).then(res => {
+      if (res.data.status === 200) {
         setLoader(false)
         setMessage(res.data.message)
         toggleSuccessModal()
@@ -226,123 +231,119 @@ const SingleQuizComponent = props => {
           </ModalFooter>
         </Modal>
       </div>
-      {
-        data ? (
-          <div>
-            <Card className='overflow-hidden'>
-              <div className='quiz-header'>
-                <div className='text-primary text-center p-4'>
-                  <h1 className='text-white font-size-20 text-uppercase'>
-                    QUIZ - {data.quizTitle}
-                  </h1>
-                </div>
-              </div>
-              <CardBody className='p-4'>
-                <div>
-                  <small>
-                    {
-                      error ? (
-                        <span className='p-3 error'>
+      <div>
+        <Card className='overflow-hidden'>
+          <div className='quiz-header'>
+            <div className='text-primary text-center p-4'>
+              <h1 className='text-white font-size-20 text-uppercase'>
+                QUIZ - {quizTitle}
+              </h1>
+            </div>
+          </div>
+          <CardBody className='p-4'>
+            <div>
+              <small>
+                {
+                  error ? (
+                    <span className='p-3 error'>
                     {error}
                   </span>
-                      ) : null
-                    }
-                  </small>
-                </div>
-                <div className='p-3'>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Quiz Title'}
-                               name={'quizTitle'}
-                               value={data.quizTitle}
-                               errorText={errorQuizTitle}
-                               helperText={helperQuizTitle}
-                               maxLength={50}
-                               onChangeFn={(event) => onChangeQuizTitle(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Quiz Description'}
-                               name={'quizDescription'}
-                               value={data.quizDescription}
-                               errorText={errorQuizDescription}
-                               helperText={helperQuizDescription}
-                               maxLength={200}
-                               onChangeFn={(event) => onChangeQuizDescription(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Question 1'}
-                               name={'question1'}
-                               value={data.questions[0].question}
-                               errorText={errorQuestion1}
-                               helperText={helperQuestion1}
-                               maxLength={200}
-                               onChangeFn={(event) => onChangeQuestion1(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Answer for Question 1'}
-                               name={'answer1'}
-                               value={data.questions[0].answer}
-                               errorText={errorAnswer1}
-                               helperText={helperAnswer1}
-                               maxLength={50}
-                               onChangeFn={(event) => onChangeAnswer1(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Question 2'}
-                               name={'question2'}
-                               value={data.questions[1].question}
-                               errorText={errorQuestion2}
-                               helperText={helperQuestion2}
-                               maxLength={200}
-                               onChangeFn={(event) => onChangeQuestion2(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Answer for Question 2'}
-                               name={'answer2'}
-                               value={data.questions[1].answer}
-                               errorText={errorAnswer2}
-                               helperText={helperAnswer2}
-                               maxLength={50}
-                               onChangeFn={(event) => onChangeAnswer2(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Question 3'}
-                               name={'question3'}
-                               value={data.questions[2].question}
-                               errorText={errorQuestion3}
-                               helperText={helperQuestion3}
-                               maxLength={200}
-                               onChangeFn={(event) => onChangeQuestion3(event)}/>
-                  </div>
-                  <div>
-                    <TextField isRequired={true}
-                               labelText={'Answer for Question 3'}
-                               name={'answer3'}
-                               value={data.questions[2].answer}
-                               errorText={errorAnswer3}
-                               helperText={helperAnswer3}
-                               maxLength={50}
-                               onChangeFn={(event) => onChangeAnswer3(event)}/>
-                  </div>
-                  <div className='text-center mt-4 mb-3'>
-                    <ButtonComponent btnText={'Submit'}
-                                     isFullWidth={false}
-                                     elementStyle={'submit-btn'}
-                                     disabled={isDisabled()}
-                                     onClickFn={onSubmit}/>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        ) : null
-      }
+                  ) : null
+                }
+              </small>
+            </div>
+            <div className='p-3'>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Quiz Title'}
+                           name={'quizTitle'}
+                           value={quizTitle}
+                           errorText={errorQuizTitle}
+                           helperText={helperQuizTitle}
+                           maxLength={50}
+                           onChangeFn={event => onChangeQuizTitle(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Quiz Description'}
+                           name={'quizDescription'}
+                           value={quizDescription}
+                           errorText={errorQuizDescription}
+                           helperText={helperQuizDescription}
+                           maxLength={200}
+                           onChangeFn={event => onChangeQuizDescription(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Question 1'}
+                           name={'question1'}
+                           value={question1}
+                           errorText={errorQuestion1}
+                           helperText={helperQuestion1}
+                           maxLength={200}
+                           onChangeFn={event => onChangeQuestion1(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Answer for Question 1'}
+                           name={'answer1'}
+                           value={answer1}
+                           errorText={errorAnswer1}
+                           helperText={helperAnswer1}
+                           maxLength={50}
+                           onChangeFn={event => onChangeAnswer1(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Question 2'}
+                           name={'question2'}
+                           value={question2}
+                           errorText={errorQuestion2}
+                           helperText={helperQuestion2}
+                           maxLength={200}
+                           onChangeFn={event => onChangeQuestion2(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Answer for Question 2'}
+                           name={'answer2'}
+                           value={answer2}
+                           errorText={errorAnswer2}
+                           helperText={helperAnswer2}
+                           maxLength={50}
+                           onChangeFn={event => onChangeAnswer2(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Question 3'}
+                           name={'question3'}
+                           value={question3}
+                           errorText={errorQuestion3}
+                           helperText={helperQuestion3}
+                           maxLength={200}
+                           onChangeFn={event => onChangeQuestion3(event)}/>
+              </div>
+              <div>
+                <TextField isRequired={true}
+                           labelText={'Answer for Question 3'}
+                           name={'answer3'}
+                           value={answer3}
+                           errorText={errorAnswer3}
+                           helperText={helperAnswer3}
+                           maxLength={50}
+                           onChangeFn={event => onChangeAnswer3(event)}/>
+              </div>
+              <div className='text-center mt-4 mb-3'>
+                <ButtonComponent btnText={'Update'}
+                                 isFullWidth={false}
+                                 elementStyle={'submit-btn'}
+                                 disabled={isDisabled()}
+                                 onClickFn={onSubmit}/>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   )
 }

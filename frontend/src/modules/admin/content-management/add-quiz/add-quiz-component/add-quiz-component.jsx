@@ -120,7 +120,7 @@ const AddQuizComponent = props => {
     setAnswer3Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
     setErrorAnswer3('')
     if (!event.eventInfo.target.validity.valid) {
-      setErrorAnswer2('Please enter a valid answer.')
+      setErrorAnswer3('Please enter a valid answer.')
     }
   }
 
@@ -231,7 +231,7 @@ const AddQuizComponent = props => {
                            errorText={errorQuizTitle}
                            helperText={helperQuizTitle}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeQuizTitle(event)}/>
+                           onChangeFn={event => onChangeQuizTitle(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -241,7 +241,7 @@ const AddQuizComponent = props => {
                            errorText={errorQuizDescription}
                            helperText={helperQuizDescription}
                            maxLength={200}
-                           onChangeFn={(event) => onChangeQuizDescription(event)}/>
+                           onChangeFn={event => onChangeQuizDescription(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -251,7 +251,7 @@ const AddQuizComponent = props => {
                            errorText={errorQuestion1}
                            helperText={helperQuestion1}
                            maxLength={200}
-                           onChangeFn={(event) => onChangeQuestion1(event)}/>
+                           onChangeFn={event => onChangeQuestion1(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -261,7 +261,7 @@ const AddQuizComponent = props => {
                            errorText={errorAnswer1}
                            helperText={helperAnswer1}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeAnswer1(event)}/>
+                           onChangeFn={event => onChangeAnswer1(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -271,7 +271,7 @@ const AddQuizComponent = props => {
                            errorText={errorQuestion2}
                            helperText={helperQuestion2}
                            maxLength={200}
-                           onChangeFn={(event) => onChangeQuestion2(event)}/>
+                           onChangeFn={event => onChangeQuestion2(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -281,7 +281,7 @@ const AddQuizComponent = props => {
                            errorText={errorAnswer2}
                            helperText={helperAnswer2}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeAnswer2(event)}/>
+                           onChangeFn={event => onChangeAnswer2(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -291,7 +291,7 @@ const AddQuizComponent = props => {
                            errorText={errorQuestion3}
                            helperText={helperQuestion3}
                            maxLength={200}
-                           onChangeFn={(event) => onChangeQuestion3(event)}/>
+                           onChangeFn={event => onChangeQuestion3(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -301,7 +301,7 @@ const AddQuizComponent = props => {
                            errorText={errorAnswer3}
                            helperText={helperAnswer3}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeAnswer3(event)}/>
+                           onChangeFn={event => onChangeAnswer3(event)}/>
               </div>
               <div className='text-center mt-4 mb-3'>
                 <ButtonComponent btnText={'Submit'}

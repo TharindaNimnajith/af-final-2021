@@ -47,7 +47,7 @@ const TextField = (
                    disabled={disabled}
                    minLength={minLength}
                    maxLength={maxLength}
-                   onChange={(event) => {
+                   onChange={event => {
                      onChangeFn({
                        value: event.target.value,
                        name: name,

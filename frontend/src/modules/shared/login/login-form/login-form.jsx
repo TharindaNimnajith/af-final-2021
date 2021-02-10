@@ -119,7 +119,7 @@ const LoginForm = props => {
                          helperText={helperEmail}
                          minLength={6}
                          maxLength={100}
-                         onChangeFn={(event) => onChangeEmail(event)}/>
+                         onChangeFn={event => onChangeEmail(event)}/>
             </div>
             <div>
               <TextField isRequired={true}
@@ -131,7 +131,7 @@ const LoginForm = props => {
                          helperText={helperPassword}
                          minLength={4}
                          maxLength={50}
-                         onChangeFn={(event) => onChangePassword(event)}/>
+                         onChangeFn={event => onChangePassword(event)}/>
             </div>
             <div className='text-center mt-4 mb-3'>
               <ButtonComponent btnText={'Login'}

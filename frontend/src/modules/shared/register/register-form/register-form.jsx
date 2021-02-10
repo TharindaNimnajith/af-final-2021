@@ -184,7 +184,7 @@ const RegisterForm = props => {
                            errorText={errorFirstName}
                            helperText={helperFirstName}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeFirstName(event)}/>
+                           onChangeFn={event => onChangeFirstName(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -194,7 +194,7 @@ const RegisterForm = props => {
                            errorText={errorLastName}
                            helperText={helperLastName}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeLastName(event)}/>
+                           onChangeFn={event => onChangeLastName(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -206,7 +206,7 @@ const RegisterForm = props => {
                            helperText={helperEmail}
                            minLength={6}
                            maxLength={100}
-                           onChangeFn={(event) => onChangeEmail(event)}/>
+                           onChangeFn={event => onChangeEmail(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -218,7 +218,7 @@ const RegisterForm = props => {
                            helperText={helperPassword}
                            minLength={4}
                            maxLength={50}
-                           onChangeFn={(event) => onChangePassword(event)}/>
+                           onChangeFn={event => onChangePassword(event)}/>
               </div>
               <div>
                 <TextField isRequired={true}
@@ -231,7 +231,7 @@ const RegisterForm = props => {
                            disabled={!passwordValid}
                            minLength={4}
                            maxLength={50}
-                           onChangeFn={(event) => onChangeConfirmPassword(event)}/>
+                           onChangeFn={event => onChangeConfirmPassword(event)}/>
               </div>
               <div className='text-center mt-4 mb-3'>
                 <ButtonComponent btnText={'Register'}

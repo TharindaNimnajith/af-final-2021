@@ -27,7 +27,7 @@ const ButtonComponent = (
               outline={isOutline}
               name={btnName}
               disabled={disabled}
-              onClick={(event) => onClickFn({
+              onClick={event => onClickFn({
                 name: btnName,
                 eventInfo: event
               })}>
