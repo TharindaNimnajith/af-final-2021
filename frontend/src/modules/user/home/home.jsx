@@ -10,7 +10,7 @@ const Home = () => {
       <div>
         <Header/>
       </div>
-      <div className='container home-page'>
+      <div className='home-page'>
         <UserHomeComponent/>
       </div>
       <div>

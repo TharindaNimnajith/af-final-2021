@@ -1,33 +1,7 @@
 import React, {useState} from 'react'
 import {Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem} from 'reactstrap'
+import {carousel1} from '../../../../shared/images'
 import './admin-dashboard-component.css'
-
-const items = [
-  {
-    src: 'https://wallpaperaccess.com/full/87270.jpg',
-    altText: 'img',
-    captionText: 'Start Your Learning Journey Today!',
-    captionHeader: 'Welcome to iLearn',
-    width: '100%',
-    height: '850px'
-  },
-  {
-    src: 'https://tojay.net/wp-content/uploads/2020/03/girl-with-computer-during-fall-495908462-5b71a54dc9e77c0082db32f8.jpg',
-    altText: 'img',
-    captionText: 'Start Your Learning Journey Today!',
-    captionHeader: 'Welcome to iLearn',
-    width: '100%',
-    height: '850px'
-  },
-  {
-    src: 'https://i.pinimg.com/originals/bf/15/e7/bf15e7df4c8b66d53f7076ddbf866e39.jpg',
-    altText: 'img',
-    captionText: 'Start Your Learning Journey Today!',
-    captionHeader: 'Welcome to iLearn',
-    width: '100%',
-    height: '850px'
-  }
-]
 
 const AdminDashboardComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -37,7 +11,7 @@ const AdminDashboardComponent = () => {
     if (animating) {
       return
     }
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1
+    const nextIndex = activeIndex === carousel1.length - 1 ? 0 : activeIndex + 1
     setActiveIndex(nextIndex)
   }
 
@@ -45,7 +19,7 @@ const AdminDashboardComponent = () => {
     if (animating) {
       return
     }
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1
+    const nextIndex = activeIndex === 0 ? carousel1.length - 1 : activeIndex - 1
     setActiveIndex(nextIndex)
   }
 
@@ -56,7 +30,7 @@ const AdminDashboardComponent = () => {
     setActiveIndex(newIndex)
   }
 
-  const slides = items.map((item) => {
+  const slides = carousel1.map(item => {
     return (
       <CarouselItem onExiting={() => setAnimating(true)}
                     onExited={() => setAnimating(false)}
@@ -76,8 +50,9 @@ const AdminDashboardComponent = () => {
     <div>
       <Carousel activeIndex={activeIndex}
                 next={next}
-                previous={previous}>
-        <CarouselIndicators items={items}
+                previous={previous}
+                className='to-back'>
+        <CarouselIndicators items={carousel1}
                             activeIndex={activeIndex}
                             onClickHandler={goToIndex}/>
         {slides}
