@@ -24,13 +24,13 @@ const QuizzesSchema = new Schema({
     trim: true
   },
   questions: [{
-    answers: [{
+    question: {
       type: String,
-      required: false,
+      required: true,
       unique: false,
       trim: true
-    }],
-    correctAnswer: {
+    },
+    answer: {
       type: String,
       required: true,
       unique: false,

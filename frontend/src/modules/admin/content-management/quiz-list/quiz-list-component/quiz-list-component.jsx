@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
+import {Card, CardDeck, CardText, CardTitle, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
-import {quizzesApi, usersApi} from '../../../../../config/api.config'
+import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
-import {Card, CardDeck, CardFooter, CardText, CardTitle, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import ButtonComponent from '../../../../../components/button/button'
 import './quiz-list-component.css'
 
-const QuizListComponent = () => {
+const QuizListComponent = props => {
   const [loader, setLoader] = useState(false)
   const [successModal, setSuccessModal] = useState(false)
   const [modal, setModal] = useState(false)
@@ -37,6 +37,10 @@ const QuizListComponent = () => {
     await toggle()
   }
 
+  const onView = async id => {
+    props.history.push('/single-quiz/' + id)
+  }
+
   const toggle = async () => {
     setModal(!modal)
   }
@@ -48,7 +52,7 @@ const QuizListComponent = () => {
   const confirmDelete = async () => {
     setError('')
     setLoader(true)
-    axios.delete(`${usersApi}quizzes/${deleteId}`).then(res => {
+    axios.delete(`${quizzesApi}quizzes/${deleteId}`).then(res => {
       if (res.data.status === 200) {
         setData(data.filter(item => item._id !== deleteId))
         setMessage(res.data.message)
@@ -134,21 +138,24 @@ const QuizListComponent = () => {
       <div>
         <CardDeck>
           {
-            data && data.map((item) => {
+            data && data.map(item => {
               return (
                 <Card body
-                      key={item._id}>
-                  <CardTitle tag='h5'>
-                    {data.quizTitle}
+                      key={item._id}
+                      onClick={() => onView(item._id)}
+                      title='View Quiz'>
+                  <CardTitle className='text-uppercase text-center m-4'
+                             tag='h2'>
+                    <label>{item.quizTitle}</label>
                   </CardTitle>
-                  <CardText>
-                    {data.quizDescription}
+                  <CardText className='m-3'>
+                    <label>{item.quizDescription}</label>
                   </CardText>
-                  <CardFooter>
+                  <div className='text-center m-3'>
                     <i className='fas fa-trash-alt delete'
-                       title='Delete Student'
+                       title='Delete Quiz'
                        onClick={() => onDelete(item._id)}/>
-                  </CardFooter>
+                  </div>
                 </Card>
               )
             })

@@ -6,8 +6,7 @@ const addQuiz = async (req, res) => {
   let {
     quizTitle,
     quizDescription,
-    questions,
-    correctAnswer
+    questions
   } = req.body
 
   try {
@@ -29,8 +28,7 @@ const addQuiz = async (req, res) => {
   const newQuiz = new QuizModel({
     quizTitle,
     quizDescription,
-    questions,
-    correctAnswer
+    questions
   })
 
   try {
@@ -57,8 +55,7 @@ const updateQuiz = async (req, res) => {
   const {
     quizTitle,
     quizDescription,
-    questions,
-    correctAnswer
+    questions
   } = req.body
 
   try {
@@ -87,7 +84,6 @@ const updateQuiz = async (req, res) => {
   quiz.quizTitle = quizTitle
   quiz.quizDescription = quizDescription
   quiz.questions = questions
-  quiz.correctAnswer = correctAnswer
 
   try {
     await quiz.save()

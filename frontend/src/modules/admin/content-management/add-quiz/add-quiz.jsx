@@ -4,17 +4,14 @@ import Footer from '../../../../components/footer/footer'
 import AddQuizComponent from './add-quiz-component/add-quiz-component'
 import './add-quiz.css'
 
-const AddQuiz = () => {
+const AddQuiz = props => {
   return (
     <div>
       <div>
         <Header/>
       </div>
-      <h1 className='text-center text-uppercase mt-5 page-title'>
-        Add Quiz
-      </h1>
       <div className='container add-quiz-page'>
-        <AddQuizComponent/>
+        <AddQuizComponent history={props.history}/>
       </div>
       <div>
         <Footer/>

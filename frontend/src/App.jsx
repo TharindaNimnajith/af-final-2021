@@ -9,6 +9,7 @@ import Dashboard from './modules/admin/dashboard/dashboard'
 import UserManagement from './modules/admin/user-management/user-management'
 import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
 import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
+import SingleQuiz from './modules/admin/content-management/single-quiz/single-quiz'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -59,6 +60,11 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={AddQuiz}/>
+              <RouteFilter path={'/single-quiz/:id'}
+                           exact={true}
+                           needAuthentication={true}
+                           userType={admin}
+                           component={SingleQuiz}/>
               <Route component={NotFound}/>
             </Switch>
           </BrowserRouter>

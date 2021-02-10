@@ -4,7 +4,7 @@ import Footer from '../../../../components/footer/footer'
 import QuizListComponent from './quiz-list-component/quiz-list-component'
 import './quiz-list.css'
 
-const QuizList = () => {
+const QuizList = props => {
   return (
     <div>
       <div>
@@ -14,7 +14,7 @@ const QuizList = () => {
         Content Management
       </h1>
       <div className='container quiz-list-page'>
-        <QuizListComponent/>
+        <QuizListComponent history={props.history}/>
       </div>
       <div>
         <Footer/>

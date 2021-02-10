@@ -4,7 +4,7 @@ import Footer from '../../../../components/footer/footer'
 import SingleQuizPage from './single-quiz-component/single-quiz-component'
 import './single-quiz.css'
 
-const SingleQuiz = () => {
+const SingleQuiz = props => {
   return (
     <div>
       <div>
@@ -14,7 +14,7 @@ const SingleQuiz = () => {
         Single Quiz
       </h1>
       <div className='container single-quiz-page'>
-        <SingleQuizPage/>
+        <SingleQuizPage history={props.history}/>
       </div>
       <div>
         <Footer/>

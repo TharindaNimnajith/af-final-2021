@@ -1,7 +1,7 @@
 import React from 'react'
 import './single-quiz-component.css'
 
-const SingleQuizComponent = () => {
+const SingleQuizComponent = props => {
   return (
     <div>
       Single
