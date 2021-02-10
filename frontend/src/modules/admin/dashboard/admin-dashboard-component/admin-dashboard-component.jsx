@@ -66,7 +66,8 @@ const AdminDashboardComponent = () => {
              width={item.width}
              height={item.height}/>
         <CarouselCaption captionHeader={item.captionHeader}
-                         captionText={item.captionText}/>
+                         captionText={item.captionText}
+                         className='text'/>
       </CarouselItem>
     )
   })

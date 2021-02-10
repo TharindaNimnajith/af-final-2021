@@ -7,6 +7,7 @@ import Register from './modules/shared/register/register'
 import Home from './modules/user/home/home'
 import Dashboard from './modules/admin/dashboard/dashboard'
 import UserManagement from './modules/admin/user-management/user-management'
+import ContentManagement from './modules/admin/content-management/content-management'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -47,6 +48,11 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={UserManagement}/>
+              <RouteFilter path={'/content-management'}
+                           exact={true}
+                           needAuthentication={true}
+                           userType={admin}
+                           component={ContentManagement}/>
               <Route component={NotFound}/>
             </Switch>
           </BrowserRouter>

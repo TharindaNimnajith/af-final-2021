@@ -1,20 +1,20 @@
 import React from 'react'
 import Header from '../../../components/header/header'
 import Footer from '../../../components/footer/footer'
-import UserManagementComponent from './user-management-component/user-management-component'
-import './user-management.css'
+import ContentManagementComponent from './content-management-component/content-management-component'
+import './content-management.css'
 
-const UserManagement = () => {
+const ContentManagement = () => {
   return (
     <div>
       <div>
         <Header/>
       </div>
       <h1 className='text-center text-uppercase mt-5 page-title'>
-        User Management
+        Content Management
       </h1>
-      <div className='container user-management-page'>
-        <UserManagementComponent/>
+      <div className='container content-management-page'>
+        <ContentManagementComponent/>
       </div>
       <div>
         <Footer/>
@@ -23,4 +23,4 @@ const UserManagement = () => {
   )
 }
 
-export default UserManagement
+export default ContentManagement
