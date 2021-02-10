@@ -52,6 +52,10 @@ const QuizListComponent = props => {
     props.history.push('/single-quiz/' + id)
   }
 
+  const onNewQuiz = async () => {
+    props.history.push('/add-quiz')
+  }
+
   const toggle = async () => {
     setModal(!modal)
   }
@@ -147,33 +151,43 @@ const QuizListComponent = props => {
         </small>
       </div>
       <div>
+        <div className='m-3'>
+          <ButtonComponent btnText={'New Quiz'}
+                           isFullWidth={false}
+                           disabled={false}
+                           onClickFn={onNewQuiz}/>
+        </div>
         <CardDeck className='card-deck'>
-          {
-            data && data.map(item => {
-              return (
-                <Card key={item._id}
-                      title='View Quiz'
-                      className='m-3 card-item'>
-                  <CardBody onClick={() => onView(item._id)}>
-                    <CardTitle className='text-uppercase text-center m-4'
-                               tag='h2'>
-                      <label>{item.quizTitle}</label>
-                    </CardTitle>
-                    <CardText className='m-4 text-center'>
-                      <label>{item.quizDescription}</label>
-                    </CardText>
-                  </CardBody>
-                  <CardFooter>
-                    <div className='text-center m-2'>
-                      <i className='fas fa-trash-alt delete'
-                         title='Delete Quiz'
-                         onClick={() => onDelete(item._id)}/>
-                    </div>
-                  </CardFooter>
-                </Card>
-              )
-            })
-          }
+          <div>
+            {
+              data && data.map(item => {
+                return (
+                  <div>
+                    <Card key={item._id}
+                          title='View Quiz'
+                          className='m-3 card-item justify-content-center'>
+                      <CardBody onClick={() => onView(item._id)}>
+                        <CardTitle className='text-uppercase text-center m-4'
+                                   tag='h2'>
+                          <label>{item.quizTitle}</label>
+                        </CardTitle>
+                        <CardText className='m-4 text-center'>
+                          <label>{item.quizDescription}</label>
+                        </CardText>
+                      </CardBody>
+                      <CardFooter>
+                        <div className='text-center m-2'>
+                          <i className='fas fa-trash-alt delete'
+                             title='Delete Quiz'
+                             onClick={() => onDelete(item._id)}/>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                )
+              })
+            }
+          </div>
         </CardDeck>
       </div>
     </div>

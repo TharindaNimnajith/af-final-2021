@@ -232,117 +232,125 @@ const SingleQuizComponent = props => {
         </Modal>
       </div>
       <div>
-        <Card className='overflow-hidden'>
-          <div className='quiz-header'>
-            <div className='text-primary text-center p-4'>
-              <h1 className='text-white font-size-20 text-uppercase'>
-                QUIZ - {quizTitle}
-              </h1>
+        <div className='mb-4'>
+          <ButtonComponent btnText={'Quiz List'}
+                           isFullWidth={false}
+                           disabled={false}
+                           onClickFn={onClick}/>
+        </div>
+        <div>
+          <Card className='overflow-hidden'>
+            <div className='quiz-header'>
+              <div className='text-primary text-center p-4'>
+                <h1 className='text-white font-size-20 text-uppercase'>
+                  QUIZ - {quizTitle}
+                </h1>
+              </div>
             </div>
-          </div>
-          <CardBody className='p-4'>
-            <div>
-              <small>
-                {
-                  error ? (
-                    <span className='p-3 error'>
+            <CardBody className='p-4'>
+              <div>
+                <small>
+                  {
+                    error ? (
+                      <span className='p-3 error'>
                     {error}
                   </span>
-                  ) : null
-                }
-              </small>
-            </div>
-            <div className='p-3'>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Quiz Title'}
-                           name={'quizTitle'}
-                           value={quizTitle}
-                           errorText={errorQuizTitle}
-                           helperText={helperQuizTitle}
-                           maxLength={50}
-                           onChangeFn={event => onChangeQuizTitle(event)}/>
+                    ) : null
+                  }
+                </small>
               </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Quiz Description'}
-                           name={'quizDescription'}
-                           value={quizDescription}
-                           errorText={errorQuizDescription}
-                           helperText={helperQuizDescription}
-                           maxLength={200}
-                           onChangeFn={event => onChangeQuizDescription(event)}/>
+              <div className='p-3'>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Quiz Title'}
+                             name={'quizTitle'}
+                             value={quizTitle}
+                             errorText={errorQuizTitle}
+                             helperText={helperQuizTitle}
+                             maxLength={50}
+                             onChangeFn={event => onChangeQuizTitle(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Quiz Description'}
+                             name={'quizDescription'}
+                             value={quizDescription}
+                             errorText={errorQuizDescription}
+                             helperText={helperQuizDescription}
+                             maxLength={200}
+                             onChangeFn={event => onChangeQuizDescription(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Question 1'}
+                             name={'question1'}
+                             value={question1}
+                             errorText={errorQuestion1}
+                             helperText={helperQuestion1}
+                             maxLength={200}
+                             onChangeFn={event => onChangeQuestion1(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Answer for Question 1'}
+                             name={'answer1'}
+                             value={answer1}
+                             errorText={errorAnswer1}
+                             helperText={helperAnswer1}
+                             maxLength={50}
+                             onChangeFn={event => onChangeAnswer1(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Question 2'}
+                             name={'question2'}
+                             value={question2}
+                             errorText={errorQuestion2}
+                             helperText={helperQuestion2}
+                             maxLength={200}
+                             onChangeFn={event => onChangeQuestion2(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Answer for Question 2'}
+                             name={'answer2'}
+                             value={answer2}
+                             errorText={errorAnswer2}
+                             helperText={helperAnswer2}
+                             maxLength={50}
+                             onChangeFn={event => onChangeAnswer2(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Question 3'}
+                             name={'question3'}
+                             value={question3}
+                             errorText={errorQuestion3}
+                             helperText={helperQuestion3}
+                             maxLength={200}
+                             onChangeFn={event => onChangeQuestion3(event)}/>
+                </div>
+                <div>
+                  <TextField isRequired={true}
+                             labelText={'Answer for Question 3'}
+                             name={'answer3'}
+                             value={answer3}
+                             errorText={errorAnswer3}
+                             helperText={helperAnswer3}
+                             maxLength={50}
+                             onChangeFn={event => onChangeAnswer3(event)}/>
+                </div>
+                <div className='text-center mt-4 mb-3'>
+                  <ButtonComponent btnText={'Update'}
+                                   isFullWidth={false}
+                                   elementStyle={'submit-btn'}
+                                   disabled={isDisabled()}
+                                   onClickFn={onSubmit}/>
+                </div>
               </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Question 1'}
-                           name={'question1'}
-                           value={question1}
-                           errorText={errorQuestion1}
-                           helperText={helperQuestion1}
-                           maxLength={200}
-                           onChangeFn={event => onChangeQuestion1(event)}/>
-              </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Answer for Question 1'}
-                           name={'answer1'}
-                           value={answer1}
-                           errorText={errorAnswer1}
-                           helperText={helperAnswer1}
-                           maxLength={50}
-                           onChangeFn={event => onChangeAnswer1(event)}/>
-              </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Question 2'}
-                           name={'question2'}
-                           value={question2}
-                           errorText={errorQuestion2}
-                           helperText={helperQuestion2}
-                           maxLength={200}
-                           onChangeFn={event => onChangeQuestion2(event)}/>
-              </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Answer for Question 2'}
-                           name={'answer2'}
-                           value={answer2}
-                           errorText={errorAnswer2}
-                           helperText={helperAnswer2}
-                           maxLength={50}
-                           onChangeFn={event => onChangeAnswer2(event)}/>
-              </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Question 3'}
-                           name={'question3'}
-                           value={question3}
-                           errorText={errorQuestion3}
-                           helperText={helperQuestion3}
-                           maxLength={200}
-                           onChangeFn={event => onChangeQuestion3(event)}/>
-              </div>
-              <div>
-                <TextField isRequired={true}
-                           labelText={'Answer for Question 3'}
-                           name={'answer3'}
-                           value={answer3}
-                           errorText={errorAnswer3}
-                           helperText={helperAnswer3}
-                           maxLength={50}
-                           onChangeFn={event => onChangeAnswer3(event)}/>
-              </div>
-              <div className='text-center mt-4 mb-3'>
-                <ButtonComponent btnText={'Update'}
-                                 isFullWidth={false}
-                                 elementStyle={'submit-btn'}
-                                 disabled={isDisabled()}
-                                 onClickFn={onSubmit}/>
-              </div>
-            </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </div>
       </div>
     </div>
   )
